@@ -10,6 +10,10 @@
 
 <h4 align="center">Easy time-overlap tables for remote teams.</h4>
 
+### Install
+`npm install -g overtime-cli`
+
+### Use
 ```
 overtime show America/Toronto Asia/Bangkok ...
 ```
