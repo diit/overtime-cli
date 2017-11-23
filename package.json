@@ -1,8 +1,16 @@
 {
-  "name": "overtime",
-  "version": "1.0.0",
+  "name": "overtime-cli",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "standard",
+    "format": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diit/overtime-cli.git"
+  },
   "dependencies": {
     "chalk": "^2.3.0",
     "cli-table2": "^0.2.0",
@@ -11,9 +19,5 @@
   },
   "devDependencies": {
     "standard": "^10.0.3"
-  },
-  "scripts": {
-    "test": "standard",
-    "format": "standard --fix"
   }
 }
