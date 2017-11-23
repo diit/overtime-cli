@@ -3,6 +3,10 @@
   "version": "0.3.1",
   "main": "index.js",
   "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "overtime": "./index.js"
+  },
   "scripts": {
     "test": "standard",
     "format": "standard --fix"
