@@ -17,10 +17,6 @@
 ```
 overtime show America/Toronto Asia/Bangkok ...
 ```
-|Color|Meaning|
-|---|---|
-|Yellow|Day|
-|Black|Night|
 
 <h1 align="center">
   Made with ☕ in 🇨🇦
