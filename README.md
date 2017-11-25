@@ -18,9 +18,14 @@
 overtime show America/Toronto Asia/Bangkok ...
 ```
 
-Yellow => Day <br>
-Black => Night
+Yellow -> ☀
+Black ->
 
-Thats it.
+|Color|Meaning|
+|---|---|
+|Yellow|Day|
+|Black|Night|
 
-Made with ☕ in 🇨🇦
+<h1 align="center">
+  Made with ☕ in 🇨🇦
+</h1>
