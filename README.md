@@ -17,10 +17,6 @@
 ```
 overtime show America/Toronto Asia/Bangkok ...
 ```
-
-Yellow -> ☀
-Black ->
-
 |Color|Meaning|
 |---|---|
 |Yellow|Day|
