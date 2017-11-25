@@ -17,7 +17,4 @@
 ```
 overtime show America/Toronto Asia/Bangkok ...
 ```
-
-<h1 align="center">
-  Made with ☕ in 🇨🇦
-</h1>
+Made with ☕ in 🇨🇦
