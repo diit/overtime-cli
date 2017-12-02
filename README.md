@@ -17,4 +17,16 @@
 ```
 overtime show America/Toronto Asia/Bangkok ...
 ```
+Available IANA zones can be found on Wikipedia : [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+Otherwise you can use `utc` shortcut.
+Ex:
+```
+overtime show America/Toronto Asia/Bangkok
+```
+can also be
+```
+overtime show utc-5 utc+7
+```
+
 Made with ☕ in 🇨🇦
