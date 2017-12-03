@@ -29,4 +29,10 @@ can also be
 overtime show utc-5 utc+7
 ```
 
+Finally, if you'd like to alias the headers you can optionally use `@` on any of the zones/offsets:
+
+```
+overtime show utc-8@vancity America/Halifax@halifornia Asia/Tokyo
+```
+
 Made with ☕ in 🇨🇦
