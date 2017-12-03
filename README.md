@@ -28,5 +28,8 @@ can also be
 ```
 overtime show utc-5 utc+7
 ```
-
+adjust working hours with
+```
+overtime hours <start> <end>
+```
 Made with ☕ in 🇨🇦
