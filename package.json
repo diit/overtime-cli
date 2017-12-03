@@ -16,10 +16,7 @@
     "url": "git+https://github.com/diit/overtime-cli.git"
   },
   "dependencies": {
-    "chalk": "^2.3.0",
-    "cli-table2": "^0.2.0",
-    "luxon": "^0.1.0",
-    "vorpal": "^1.12.0"
+    "luxon": "^0.1.0"
   },
   "devDependencies": {
     "standard": "^10.0.3"
