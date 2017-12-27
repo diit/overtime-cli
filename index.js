@@ -7,18 +7,32 @@ const assert = require('assert')
 const { DateTime } = require('luxon')
 const chalk = require('chalk')
 
+
 const vorpal = require('vorpal')()
 
 const NIGHT_TIME_START = 20
 const NIGHT_TIME_END = 9
 
+const ALIAS_SPLITTER = '@';
+
 vorpal.command('show [regions...]', 'Generates time overlap table')
   .alias('table')
   .action(function (args, cb) {
+
     // TODO: BETTER VALIDATION
     assert(args.regions.length > 0)
+
+    const pairs = args.regions.map((region) => {
+
+      return (region.includes(ALIAS_SPLITTER)) ? region.split(ALIAS_SPLITTER) : [region, region]
+
+    });
+
+    const regions = pairs.map(pair => pair[0]);
+    const aliases = pairs.map(pair => pair[1]);
+
     const table = new Table({
-      head: args.regions
+      head: aliases
     })
 
     // TODO: Pivot from primary
@@ -41,7 +55,7 @@ vorpal.command('show [regions...]', 'Generates time overlap table')
 
     for (let hour = 0; hour < 24; hour++) {
       const row = []
-      args.regions.forEach(region => {
+      regions.forEach(region => {
         row.push(formatTime(getRegionsTime(region).plus({
           hours: hour
         }).set({
