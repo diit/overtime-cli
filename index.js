@@ -2,7 +2,7 @@
 
 'use strict'
 
-const Table = require('cli-table2')
+const Table = require('cli-table3')
 const assert = require('assert')
 const { DateTime } = require('luxon')
 const chalk = require('chalk')
