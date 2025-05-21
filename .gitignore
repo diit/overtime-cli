@@ -56,3 +56,13 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml

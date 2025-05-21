@@ -1,71 +1,59 @@
 #!/usr/bin/env node
 
-'use strict'
+import chalk from "chalk";
+import Table from "cli-table3";
+import { Command } from "commander";
+import { DateTime } from "luxon";
 
-const Table = require('cli-table2')
-const assert = require('assert')
-const { DateTime } = require('luxon')
-const chalk = require('chalk')
+const NIGHT_TIME_START = 20;
+const NIGHT_TIME_END = 9;
+const ALIAS_SPLITTER = "@";
 
-const vorpal = require('vorpal')()
+const program = new Command();
+program
+	.name("overtime")
+	.description("Generates time overlap table for regions")
+	.argument(
+		"<regions...>",
+		"List of IANA time zone names, optionally with aliases (e.g. America/New_York@NY)",
+	)
+	.action((regions) => {
+		if (!regions || regions.length === 0) {
+			console.error(chalk.red("Error: At least one region must be specified."));
+			process.exit(1);
+		}
 
-const NIGHT_TIME_START = 20
-const NIGHT_TIME_END = 9
+		const pairs = regions.map((region) =>
+			region.includes(ALIAS_SPLITTER)
+				? region.split(ALIAS_SPLITTER)
+				: [region, region],
+		);
+		const tzs = pairs.map((pair) => pair[0]);
+		const aliases = pairs.map((pair) => pair[1]);
 
-const ALIAS_SPLITTER = '@'
+		// Validate timezones
+		for (const tz of tzs) {
+			if (!DateTime.local().setZone(tz).isValid) {
+				console.error(chalk.red(`Invalid timezone: ${tz}`));
+				process.exit(1);
+			}
+		}
 
-vorpal.command('show [regions...]', 'Generates time overlap table')
-  .alias('table')
-  .action(function (args, cb) {
-    // TODO: BETTER VALIDATION
-    assert(args.regions.length > 0)
+		const table = new Table({ head: aliases });
+		const now = DateTime.local();
 
-    const pairs = args.regions.map((region) => {
-      return (region.includes(ALIAS_SPLITTER)) ? region.split(ALIAS_SPLITTER) : [region, region]
-    })
+		for (let hour = 0; hour < 24; hour++) {
+			const row = tzs.map((tz) => {
+				const time = now.setZone(tz).plus({ hours: hour }).set({ minute: 0 });
+				const displayString = ` ${time.toLocaleString({ hour: "numeric", minute: "2-digit", hour12: true })} `;
+				if (time.hour >= NIGHT_TIME_START || time.hour < NIGHT_TIME_END) {
+					return chalk.grey.bgBlack(displayString);
+				}
+				return chalk.black.bgYellow(displayString);
+			});
+			table.push(row);
+		}
+		console.log(table.toString());
+	});
 
-    const regions = pairs.map(pair => pair[0])
-    const aliases = pairs.map(pair => pair[1])
-
-    const table = new Table({
-      head: aliases
-    })
-
-    // TODO: Pivot from primary
-    const getRegionsTime = region => {
-      const now = DateTime.local()
-      return now.setZone(region)
-    }
-
-    const formatTime = time => {
-      const displayString = ` ${time.toLocaleString({
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true
-      })} `
-      if (time.hour > NIGHT_TIME_START || time.hour < NIGHT_TIME_END) {
-        return chalk.grey.bgBlack(displayString)
-      }
-      return chalk.black.bgYellow(displayString)
-    }
-
-    for (let hour = 0; hour < 24; hour++) {
-      const row = []
-      regions.forEach(region => {
-        row.push(formatTime(getRegionsTime(region).plus({
-          hours: hour
-        }).set({
-          minutes: 0
-        })))
-      })
-      table.push(row)
-    }
-
-    this.log(table.toString())
-    cb(null, table.toString())
-  })
-
-vorpal
-  .delimiter('$ ')
-  .show()
-  .parse(process.argv)
+program.parse(process.argv);

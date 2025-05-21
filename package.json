@@ -1,6 +1,6 @@
 {
   "name": "overtime-cli",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "main": "index.js",
   "license": "MIT",
   "preferGlobal": true,
@@ -8,20 +8,22 @@
     "overtime": "./index.js"
   },
   "scripts": {
-    "test": "standard",
-    "format": "standard --fix"
+    "lint": "biome check index.js",
+    "lint:fix": "biome check index.js --write",
+    "format": "biome format index.js --write"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/diit/overtime-cli.git"
   },
+  "type": "module",
   "dependencies": {
-    "chalk": "^2.3.0",
-    "cli-table2": "^0.2.0",
-    "luxon": "^0.1.0",
-    "vorpal": "^1.12.0"
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^14.0.0",
+    "luxon": "^3.6.1"
   },
   "devDependencies": {
-    "standard": "^10.0.3"
+    "@biomejs/biome": "1.9.4"
   }
 }
